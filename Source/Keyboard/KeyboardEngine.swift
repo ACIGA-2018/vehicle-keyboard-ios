@@ -47,11 +47,11 @@ class KeyboardEngine: NSObject {
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     static let _OK_ENABLE_ALWAYS = true
 
-    public class func checkComplete:(numberType: PWKeyboardNumType) {
-        return 7;
+    public class func checkComplete(_: PWKeyboardNumType) -> Bool {
+        return true;
     }
 
-    public class func getMaxCount:(numberType: PWKeyboardNumType) {
+    public class func getMaxCount(_: PWKeyboardNumType) -> Int {
         return 8;
     }
 
@@ -244,8 +244,8 @@ class KeyboardEngine: NSObject {
         let listModel = KeyboardLayout()
         listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 0, length: 10))
         listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 10, length: 10))
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 20, length: 8))
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 28, length: 4) + _STR_MORE  + _STR_DEL_OK)
+        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 20, length: 10))
+        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 30, length: _STR_CIVIL_PVS.count - 30) + _STR_MORE  + _STR_DEL_OK)
         return listModel
     }
     
