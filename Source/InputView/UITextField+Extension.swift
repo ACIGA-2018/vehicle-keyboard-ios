@@ -112,20 +112,22 @@ extension UITextField :PWKeyBoardViewDeleagte{
             return false
         }
         let keyboardView = inputView as! PWKeyBoardView
-        var complete = false
-        if keyboardView.numType == .newEnergy || keyboardView.numType == .wuJing {
-            complete = text!.count == 8
-        }else {
-            complete = text!.count == 7
-        }
-        return complete
+        return KeyboardEngine.checkComplete(keyboardView.numType)
+        // var complete = false
+        // if keyboardView.numType == .newEnergy || keyboardView.numType == .wuJing {
+        //     complete = text!.count == 8
+        // }else {
+        //     complete = text!.count == 7
+        // }
+        // return complete
     }
     
     private func refreshKeyboard(isMoreType:Bool){
         //当输入框处于填满状态时，输入的下标往前移动一位数
         let keyboardView = inputView as! PWKeyBoardView
         let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.detectNumberTypeOf(presetNumber: text!)
-        let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+        // let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+        let maxCount = KeyboardEngine.getMaxCount(numType)
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count
         keyboardView.updateText(text: text!,isMoreType:isMoreType,inputIndex:inpuntIndex)
         plateChange?(text!,maxCount == text!.count)

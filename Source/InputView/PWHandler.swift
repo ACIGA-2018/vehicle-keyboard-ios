@@ -149,7 +149,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         if  paletNumber.count > 0,KeyboardEngine.subString(str: paletNumber, start: 0, length: 1) == "W" {
             numType = .wuJing
         }
-        maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+        // maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+        maxCount = KeyboardEngine.getMaxCount(numType)
         if paletNumber.count > maxCount {
             paletNumber = KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
         } else if maxCount == 8,paletNumber.count == 7 {
@@ -242,7 +243,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             }
             let keyboardView = inputTextfield.inputView as! PWKeyBoardView
             let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.detectNumberTypeOf(presetNumber: paletNumber)
-            maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+            // maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+            maxCount = KeyboardEngine.getMaxCount(numType)
             if maxCount > paletNumber.count || selectIndex < paletNumber.count - 1 {
                 selectIndex += 1;
             }

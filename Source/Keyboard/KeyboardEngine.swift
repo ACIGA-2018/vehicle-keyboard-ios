@@ -10,7 +10,8 @@ import UIKit
 
 class KeyboardEngine: NSObject {
     
-    static let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新台"
+    // static let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新台"
+    static let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新"
     static let _CHAR_DEL = "-"
     static let _STR_DEL_OK = _CHAR_DEL + "+"
     static let _STR_OK = "+"
@@ -44,7 +45,16 @@ class KeyboardEngine: NSObject {
     static let _CHAR_SHI = "使"
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
-    
+    static let _OK_ENABLE_ALWAYS = true
+
+    public class func checkComplete:(numberType: PWKeyboardNumType) {
+        return 7;
+    }
+
+    public class func getMaxCount:(numberType: PWKeyboardNumType) {
+        return 8;
+    }
+
     class func generateLayout(keyboardType: PWKeyboardType,
                               inputIndex: Int,
                               presetNumber: String,
@@ -121,10 +131,14 @@ class KeyboardEngine: NSObject {
         var okString = ""
         if numberType == .newEnergy || numberType == .wuJing {
             okString = keyString.count == 8 ? _STR_OK : ""
-        }else {
+        } else {
             okString = keyString.count == 7 ? _STR_OK : ""
         }
-        let disOkString = okString == "" ? _STR_OK : ""
+        var disOkString = okString == "" ? _STR_OK : ""
+        if _OK_ENABLE_ALWAYS {
+            okString = _STR_OK
+            disOkString = ""
+        }
         switch inputIndex {
         case 0:
             if numberType == PWKeyboardNumType.newEnergy {
@@ -179,8 +193,8 @@ class KeyboardEngine: NSObject {
             }
             
         case 7:
-             let complete = keyString.count == 8 ? _STR_OK : ""
-            list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + complete), listModel: list, reverseModel:true)
+            // let complete = keyString.count == 8 ? _STR_OK : ""
+            list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + disOkString), listModel: list, reverseModel:true)
             
         default:
             break
