@@ -194,7 +194,7 @@ class KeyboardEngine: NSObject {
             
         case 7:
             // let complete = keyString.count == 8 ? _STR_OK : ""
-            list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + disOkString), listModel: list, reverseModel:true)
+            list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + okString), listModel: list, reverseModel:true)
             
         default:
             break
